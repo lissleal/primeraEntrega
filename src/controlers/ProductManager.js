@@ -1,5 +1,4 @@
 import {promises as fs} from "fs"
-import {nanoid} from 'nanoid'
 
 class ProductManager {
     constructor(){
@@ -23,7 +22,7 @@ class ProductManager {
 
     addProducts = async (product) => {
         let productsOld = await this.readProducts()
-        product.id = Math.round(random()*1000);
+        product.id = Math.round(Math.random()*1000);
         let productAll = [...productsOld, product]
         await this.writeProducts(productAll)
         return "Producto Agregado"
@@ -41,8 +40,12 @@ class ProductManager {
 
     updateProducts = async (id, product) => {
         let productById = await this.existProducts(id)
+        if (!productById) return "Producto no encontrado"
         await this.deleteProducts(id)
-        let productUpdated = [{...product, id : id}]
+        let productsOld = await this.readProducts()
+        let productsNew = [{...product, id : id}, ...productsOld]
+        await this.writeProducts(productsNew)
+        return "Producto Actualizado"
     }
 
     deleteProducts = async (id) => {
