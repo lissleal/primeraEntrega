@@ -23,7 +23,7 @@ class ProductManager {
 
     addProducts = async (product) => {
         let productsOld = await this.readProducts()
-        product.id = Math.random()*1000;
+        product.id = Math.round(random()*1000);
         let productAll = [...productsOld, product]
         await this.writeProducts(productAll)
         return "Producto Agregado"
