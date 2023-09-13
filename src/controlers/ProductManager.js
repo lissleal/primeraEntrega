@@ -28,8 +28,11 @@ class ProductManager {
         return "Producto Agregado"
     }
 
-    getProducts = async () => {
-        return await this.readProducts()
+    getProducts = async (limit) => {
+        let productsOld = await this.readProducts()
+        if (!limit) return productsOld
+        if(productsOld.length === 0) return "Error no se encontraron productos que cumplan con el criterio"
+        if (productsOld && limit) return productsOld.slice(0, limit)
     }
 
     getProductsById = async (id) => {
