@@ -29,7 +29,7 @@ app.use("/", express.static(__dirname + "/public"))
 app.use("/", ViewsRouter)
 
 //Configuración de eventos WebSocket:
-socketServer.on("connection", socket => {
+socketServer.on("connection", (socket) => {
     console.log("Nuevo cliente conectado")
     socket.on("message", data => {
         console.log(data)
