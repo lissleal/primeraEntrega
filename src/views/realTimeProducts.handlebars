@@ -1,11 +1,56 @@
-<div>
-    <form action="">
-        <input type="text" placeholder="message">
-        <button>Enviar</button>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos Tiempo Real</title>
+</head>
+<body>
+    <div class="form">
+        <h2>Ingresa tu producto</h2>
+    <form id="productsForm">
+        <div class="inputs">
+        <label for="title">Nombre del Producto</label>
+        <input type="text" placeholder="Title" id="title" name="title" required>
+
+        <label for="id">Id del Producto</label>
+        <input type="text" placeholder="id" id="id" name="id" required>
+
+        <label for="description">Descripcion del Producto</label>
+        <input type="text" placeholder="description" id="description" name="description" required>
+        
+        <label for="price">Precio del Producto</label>
+        <input type="text" placeholder="Price" id="price" name="price" required>
+
+        <label for="category">Categoria del Producto</label>
+        <input type="text" placeholder="Category" id="category" name="category" required>
+
+        <label for="stock">Stock del Producto</label>
+        <input type="text" placeholder="Stock" id="stock" name="stock" required>
+
+        <label for="thumbnails">Url de Imagen del Producto</label>
+        <input type="text" placeholder="Url" id="thumbnails" name="thumbnails" required>
+        </div>
+
+        <button type="submit">Enviar</button>
     </form>
+
     <h1>Lista de productos en tiempo real</h1>
+    <table id="realTimeProducts">
+        <tr>
+            <th>Nombre</th>
+            <th>Id</th>
+            <th>Descripcion</th>
+            <th>Precio</th>
+            <th>Categoria</th>
+            <th>Stock</th>
+            <th>Imagen</th>
+        </tr>      
+    </table>
 
 </div>
+</body>
+</html>
 
 <script src="/socket.io/socket.io.js"></script>
-<script src="/js/realTimeProducts.js"></script>
+<script src="js/realTimeProducts.js"></script>

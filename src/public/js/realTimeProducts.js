@@ -1,14 +1,33 @@
-const socket = io()
-socket.emit("message", "Hola, me estoy comunicando desde un websocket")
+const socket = io();
 
-socket.on("evento_para_socket_individual", data => {
-    console.log(data)
+const message = "Hola, me estoy comunicando desde un websocket"
+socket.emit("product", message)
+
+document.getElementById("productsForm").addEventListener("submit", (e) => {
+    e.preventDefault()
+    const formData = new FormData(e.target);
+    const productData = {};
+
+    formData.forEach((value, key) => {
+        productData[key] = value;
+    });
+
+    socket.emit('addProduct', productData)
+    e.target.reset();
 })
 
-socket.on("evento_para_todos_menos_el_socket_actual", data =>{
-    console.log(data)
-})
+socket.on("productAdded", (product) => {
+    const newElement = document.createElement("tr")
+    newElement.innerHTML = `
+    <td>${product.title}</td>
+    <td> ${product.id} </td>
+    <td> ${product.description} </td>
+    <td> ${product.price} </td>
+    <td> ${product.category} </td>
+    <td> ${product.stock} </td>
+    <td>     <img src="${product.thumbnails}" alt=""> </td>
 
-socket.on("evento_para_todos", data => {
-    console.log(data)
+    `
+    const realTimeProducts = document.getElementById("realTimeProducts")
+    realTimeProducts.appendChild(newElement)
 })

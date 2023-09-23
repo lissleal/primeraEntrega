@@ -1,11 +1,11 @@
 import express from "express";
+import { Server } from "socket.io";
 import ProductRouter from "./router/product.routes.js";
 import CartRouter from "./router/carts.routes.js";
 import { engine } from "express-handlebars";
 import * as path from "path"
 import __dirname from "./utils.js";
 import ProductManager from "./controlers/ProductManager.js";
-import { Server } from "socket.io";
 import ViewsRouter from "./router/views.routes.js";
 
 //Creación de la aplicación Express y servidor HTTP:
@@ -28,18 +28,22 @@ app.set("views", path.resolve(__dirname + "/views"))
 app.use("/", express.static(__dirname + "/public"))
 app.use("/", ViewsRouter)
 
+app.get("/realTimeProducts", async (req, res) => {
+    res.render("realTimeProducts", )
+})
+
 //Configuración de eventos WebSocket:
+
 socketServer.on("connection", (socket) => {
     console.log("Nuevo cliente conectado")
-    socket.on("message", data => {
-        console.log(data)
-    })
 
-    socket.emit("evento_para_socket_individual","Este mensaje solo lo debe recibir el socket")
-
-    socket.broadcast.emit("evento_para_todos_menos_el_socket_actual","Este evento lo veran todos los sockets conectaods menos el socket actual desde el que se envio el mensaje")
-
-    socketServer.emit("evento_para_todos", "Este mensaje lo reciben todos los sockets conectados")
+     socket.on('addProduct', async (productData) => { 
+        console.log(productData);
+        const prodAddByClient = await product.addProducts(productData)
+        if(prodAddByClient === "Producto Agregado"){
+        socketServer.emit("productAdded", productData)
+        }    
+    });
 })
 
 //Rutas GET para la página de inicio y detalles del producto:
@@ -59,7 +63,6 @@ app.get("/:id", async (req, res) => {
     products: prod
     })
 })
-
 
 //Rutas para API de productos y carritos:
 app.use("/api/products", ProductRouter)
