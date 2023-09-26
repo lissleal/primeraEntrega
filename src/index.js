@@ -28,10 +28,6 @@ app.set("views", path.resolve(__dirname + "/views"))
 app.use("/", express.static(__dirname + "/public"))
 app.use("/", ViewsRouter)
 
-app.get("/realTimeProducts", async (req, res) => {
-    res.render("realTimeProducts", )
-})
-
 //Configuración de eventos WebSocket:
 
 socketServer.on("connection", (socket) => {
@@ -52,6 +48,14 @@ app.get("/", async (req, res) => {
     res.render("home", {
     title: "Express Avanzado | Handlebars",
     products: allProducts
+    })
+})
+
+app.get("/realTimeProducts", async (req, res) => {
+    let allProducts = await product.getProducts()
+    res.render("realTimeProducts", {
+        title: "Express Avanzado | Handlebars",
+        oldProducts: allProducts
     })
 })
 

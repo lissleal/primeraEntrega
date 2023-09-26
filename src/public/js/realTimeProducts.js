@@ -31,3 +31,4 @@ socket.on("productAdded", (product) => {
     const realTimeProducts = document.getElementById("realTimeProducts")
     realTimeProducts.appendChild(newElement)
 })
+

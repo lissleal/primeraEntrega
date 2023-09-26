@@ -45,7 +45,19 @@
             <th>Categoria</th>
             <th>Stock</th>
             <th>Imagen</th>
-        </tr>      
+        </tr> 
+
+        {{#each products}}
+            <tr class="divProducto">
+            <td>{{this.title}}</td>
+            <td> {{this.id}} </td>
+            <td> {{this.description}} </td>
+            <td> {{this.price}} </td>
+            <td> {{this.category}} </td>
+            <td> {{this.stock}} </td>
+            <td><img src="{{this.thumbnails}}" alt=""></td>
+            </tr>
+        {{/each}}
     </table>
 
 </div>
