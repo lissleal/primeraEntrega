@@ -13,9 +13,6 @@
         <label for="title">Nombre del Producto</label>
         <input type="text" placeholder="Title" id="title" name="title" required>
 
-        <label for="id">Id del Producto</label>
-        <input type="text" placeholder="id" id="id" name="id" required>
-
         <label for="description">Descripcion del Producto</label>
         <input type="text" placeholder="description" id="description" name="description" required>
         
@@ -47,17 +44,8 @@
             <th>Imagen</th>
         </tr> 
 
-        {{#each products}}
-            <tr class="divProducto">
-            <td>{{this.title}}</td>
-            <td> {{this.id}} </td>
-            <td> {{this.description}} </td>
-            <td> {{this.price}} </td>
-            <td> {{this.category}} </td>
-            <td> {{this.stock}} </td>
-            <td><img src="{{this.thumbnails}}" alt=""></td>
-            </tr>
-        {{/each}}
+            {{> oldProducts}}
+
     </table>
 
 </div>

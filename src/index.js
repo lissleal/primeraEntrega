@@ -20,13 +20,13 @@ const product = new ProductManager()
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 
+//Estructura handlebars
 app.engine("handlebars", engine())
 app.set("view engine", "handlebars")
 app.set("views", path.resolve(__dirname + "/views"))
 
 //Configuración de rutas estáticas y de vistas:
 app.use("/", express.static(__dirname + "/public"))
-app.use("/", ViewsRouter)
 
 //Configuración de eventos WebSocket:
 
@@ -54,8 +54,8 @@ app.get("/", async (req, res) => {
 app.get("/realTimeProducts", async (req, res) => {
     let allProducts = await product.getProducts()
     res.render("realTimeProducts", {
-        title: "Express Avanzado | Handlebars",
-        oldProducts: allProducts
+    title: "Express Avanzado | Handlebars",
+    products: allProducts
     })
 })
 
@@ -67,6 +67,8 @@ app.get("/:id", async (req, res) => {
     products: prod
     })
 })
+
+
 
 //Rutas para API de productos y carritos:
 app.use("/api/products", ProductRouter)
