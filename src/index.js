@@ -16,6 +16,8 @@ const socketServer = new Server(httpServer)
 
 const product = new ProductManager()
 
+app.use("/", ViewsRouter)
+
 //Middlewares
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
@@ -42,31 +44,6 @@ socketServer.on("connection", (socket) => {
     });
 })
 
-//Rutas GET para la página de inicio y detalles del producto:
-app.get("/", async (req, res) => {
-    let allProducts = await product.getProducts()
-    res.render("home", {
-    title: "Express Avanzado | Handlebars",
-    products: allProducts
-    })
-})
-
-app.get("/realTimeProducts", async (req, res) => {
-    let allProducts = await product.getProducts()
-    res.render("realTimeProducts", {
-    title: "Express Avanzado | Handlebars",
-    products: allProducts
-    })
-})
-
-app.get("/:id", async (req, res) => {
-
-    let prod = await product.getProductsById(parseInt(req.params.id))
-    res.render("prod", {
-    title: "Express Avanzado | Handlebars",
-    products: prod
-    })
-})
 
 
 
